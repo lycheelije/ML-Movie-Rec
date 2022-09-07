@@ -14,7 +14,7 @@ SPR2022 Studio - Group X
 
 2) Install Requirements
 
-    $cd <folder path>
+    $cd [folder path]
     
     $pip install -r requirements.txt
 
