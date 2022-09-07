@@ -10,19 +10,19 @@ SPR2022 Studio - Group X
 
 1) Clone Repo
 
-    git clone https://github.com/lycheelije/ML-Movie-Rec.git
+    $git clone https://github.com/lycheelije/ML-Movie-Rec.git
 
 2) Install Requirements
 
-    cd <folder path>
+    $cd <folder path>
     
-    pip install -r requirements.txt
+    $pip install -r requirements.txt
 
 3) Run Applicaiton Locally
 
-    cd mlmr-project
+    $cd mlmr-project
     
-    python app.py
+    $python app.py
 
 4) Load via Browser
 
