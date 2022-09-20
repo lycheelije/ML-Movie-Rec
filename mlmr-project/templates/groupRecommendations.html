@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Group Recommendations{% endblock %}
+
+{% block content %}
+  <!-- TODO: Load Icons directly  -->
+  <!-- <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='movie_icon.png') }}" sizes="192x192" /> -->
+  <!-- <img src="{{ url_for('static', filename='movie_icon.png') }}" class="icon" /> -->
+  <h3>Recommend me a movie</h3>
+  <form action="/groupRecommendations" method="post">
+    <input type="text" name="query" placeholder="Enter your current mood" required />
+    <input type="submit" value="Generate Movie" />
+  </form>
+  <div class="p-3 rounded">
+    <div class="row">
+      <div class="col-lg-12">
+        <h3 class="text-primary">{{prompt}}</h3>
+        <p class="lead">{{openAIAnswerUnformatted}}</p>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
