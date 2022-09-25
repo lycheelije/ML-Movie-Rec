@@ -7,6 +7,7 @@ from flask import Flask, render_template, url_for, request, redirect
 
 app = Flask(__name__, static_url_path = "/static", static_folder = "static")
 openai.api_key =  os.getenv("OPENAI_API_KEY")
+app.config.from_object("config.Config")
 #model = pickle.load(open('model.pkl', 'rb'))
 
 ## Routing
