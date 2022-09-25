@@ -6,6 +6,10 @@ SPR2022 Studio - Group X
 
 0) Create Virtual Environment (Optional)
 
+    On windows: 
+    python -m venv .venv 
+    .venv\Scripts\activate
+
     Message Elijah if you need assistance
 
 1) Clone Repo
