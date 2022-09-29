@@ -11,9 +11,10 @@ app = Flask(__name__, static_url_path = "/static", static_folder = "static")
 ## API Keys 
 tmdb_ak = "a0bba4b02d48ae656ebb937c0d8d7443"
 openai.api_key =  os.getenv("OPENAI_API_KEY")
-
+app.config.from_object("config.Config")
 
 ## Load Models 
+
 #model = pickle.load(open('model.pkl', 'rb'))
 
 
