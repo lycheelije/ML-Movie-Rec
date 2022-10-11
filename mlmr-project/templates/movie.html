@@ -4,6 +4,83 @@
 
 {% block content %}
 
+<main>
 
+  <div class="container-movie-page">
+    <img src="https://image.tmdb.org/t/p/w1280{{movies.backdrop_path}}" class="movieSplash" alt="...">
+    <div class="container-movie-page-contents">
+      <h3 id="" class="movie-title-solo text-center">{{movies.title}}<small class="text-muted">( {{movies.release_date}} )</small></h3>
+      <hr class="dotted" />
+      <h3 id="" class="movie-description text-center">{{movies.overview}}</h3>
+      <hr class="dotted" />
+      <h3 id="" class="movie-description text-center"><small class="text-muted">Rating: </small>{{movies.vote_average}}</h3>
+      <hr class="dotted" />
+      <h3 id="" class="movie-description text-center"><small class="text-muted">Streaming Providers: </small>{% for providers in streamingProviders.US.flatrate %}{{providers.provider_name}} {% endfor %}</h3>
+    </div>
+
+  </div>
+
+  <div class="d-flex justify-content-center align-items-center container">
+    <h3 class="mt-5">Additional Information&nbsp;</h3>
+  </div>
+
+  <!-- Cast Details -->
+  <div class="cardAdditionalDetails castCard scrollbar-ripe-malinka">
+    <div class="card-body">
+      <h4 id="section1"><strong>Cast</strong></h4>
+      <ul>
+        {% for cast in cast.cast %}   
+            <li>{{cast.name}} - <small class="text-muted">( {{cast.character}} )</small></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <!-- Cast Details -->
+  <div class="cardAdditionalDetails castCard scrollbar-ripe-malinka">
+    <div class="card-body">
+      <h4 id="section1"><strong>Crew</strong></h4>
+      <ul>
+        {% for crew in cast.crew %}   
+            <li>{{crew.name}} - <small class="text-muted">( {{crew.job}} )</small></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  
+  <div class="d-flex justify-content-center align-items-center container">
+    <h3 class="mt-5">Related Movies</h3>
+  </div>
+  
+  <div class="container">
+    {% for movie in similar %}
+    <div class="movie-card">
+      <form action="/movie" method="post">
+        <input type="hidden" name="movieId" value="{{movie.id}}">		
+        <button type="submit" class="movie-header moviePoster" style="background:url('https://image.tmdb.org/t/p/w300{{movie.poster_path}}');"></button>
+      </form>
+        
+      <div class="movie-content">
+        <div class="movie-content-header">
+          <form action="/movie" method="post">
+            <input type="hidden" name="movieId" value="{{movie.id}}">
+            <button type="submit" class="movie-title">{{movie.title}}</button>
+          </form>
+        </div>
+        <div class="movie-info">
+          <div class="info-section">
+            <label>Release Date</label>
+            <span>{{movie.release_date}}</span>
+          </div>
+          <div class="info-section">
+            <label>TMDB</label>
+            <span>{{movie.vote_average}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</main>
 
 {% endblock %}

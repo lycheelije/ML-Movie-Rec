@@ -3,43 +3,34 @@
 {% block title %}MLMR{% endblock %}
 
 {% block content %}
-    <!-- Home Cards-->
-  <div class="container">
-    <h3 class="text-center pt-5 pb-5">Let us help you find your next movie!</h3>
-    <br>
-    <div class="row">
-      <div class="col">
-        <div class="card card-homepage">
-            <img src="{{url_for('static', filename='undraw_home_cinema.png')}}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Personal Recommendations</h5>
-                <p class="card-text">Find something for yourself</p>
-                  <a href="/personalRecommendations" tabindex="-1" class="btn btn-primary col-6">GO</a>
-            </div>
-        </div>
+
+<div class="container pb-5">
+
+  <h3 class="text-center pt-5 pb-5">Let us help you find your next movie!</h3>
+
+  <div class="row">
+    <div id="personalRedirect" class="col-md-4">
+      <div class="card card-1">
+        <h3>Personal Recommendations</h3>
+        <p>Find something for yourself</p>
+        <a href="/personalRecommendations" class="stretched-link"></a>
       </div>
-        <div class="col">
-          <div class="card card-homepage">
-              <img src="{{url_for('static', filename='undraw_group.png')}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                  <h5 class="card-title">Group Recommendations</h5>
-                  <p class="card-text">Find a movie that the group can watch</p>
-                    <a href="/groupRecommendations" tabindex="-1" class="btn btn-primary col-6">GO</a>
-                  </div>
-          </div>
+    </div>
+    <div id="groupRedirect" class="col-md-4">
+      <div class="card card-2">
+        <h3>Group Recommendations</h3>
+        <p>Find a movie that the group can watch</p>
+        <a href="/groupRecommendations" class="stretched-link"></a>
       </div>
-        <div class="col">
-            <div class="card card-homepage">
-                <img src="{{url_for('static', filename='undraw_search.png')}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Search</h5>
-                    <p class="card-text">Try and find your own option</p>
-                      <a href="/search" tabindex="-1" class="btn btn-primary col-6">GO</a>
-                    </div>
-            </div>
-        </div>
+    </div>
+    <div id="exploreRedirect" class="col-md-4">
+      <div class="card card-3">
+        <h3>Explore</h3>
+        <p>Still not sure? Try searching known movies and find something similar</p>
+        <a href="/search" class="stretched-link"></a>
+      </div>
     </div>
   </div>
+</div>
 
-  <!-- Home Cards End-->
 {% endblock %}

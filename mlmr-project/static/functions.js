@@ -1,6 +1,8 @@
-// const searchButton = document.getElementById('search-button');
-// const searchInput = document.getElementById('search-input');
-// searchButton.addEventListener('click', () => {
-//   const inputValue = searchInput.value;
-//   alert(inputValue);
-// });
+// $(document).ready(function() { 
+//     setTimeout(function() { 
+//         var movieData = "This is my data string."
+//         jQuery.post("/movie", {"movieData": movieData})
+//         // console.log( $("#movieId").attr('value') );
+// }, 500); 
+//   });
+

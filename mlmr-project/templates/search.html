@@ -5,24 +5,49 @@
 <!-- Search Body -->
 {% block content %}
 <div class="d-flex justify-content-center align-items-center container">
-  <h3>Search for a Known Movie&nbsp;</h3>
+  <h3>Explore&nbsp;</h3>
 </div>
 
 <div class="d-flex justify-content-center align-items-center container">
-    <form action="/search" method="post">
-      <input type="text" name="movie_query" placeholder="The Invitation (2022)" required />
-      <!-- TODO: On click of GO, clear #movie div and fill it with search results -->
-      <input type="submit" value="GO" />
-    </form>
+  <form action="/search" method="post">
+    <input type="text" name="movie_query" placeholder="The Invitation (2022)" required />
+    <!-- TODO: On click of GO, clear #movie div and fill it with search results -->
+    <input type="submit" value="GO" />
+  </form>
 </div>
 
+<div class="d-flex justify-content-center align-items-center container">
+  <h3 class="mt-5">Most Popular (Recent)&nbsp;</h3>
+</div>
 
- <div>
-      {% for movie in movies %}
-      <div id="movie" href="/movie" style="background-image: url(http://image.tmdb.org/t/p/w500{{movie.backdrop_path}});">
-      </div>
-      {% endfor %}
-  </div>
-
+<div class="container">
+  {% for movie in movies %}
+	<div class="movie-card">
+		<form action="/movie" method="post">
+			<input type="hidden" name="movieId" value="{{movie.id}}">		
+			<button type="submit" class="movie-header moviePoster" style="background:url('https://image.tmdb.org/t/p/w300{{movie.poster_path}}');"></button>
+		</form>
+			
+		<div class="movie-content">
+			<div class="movie-content-header">
+				<form action="/movie" method="post">
+					<input type="hidden" name="movieId" value="{{movie.id}}">
+					<button type="submit" class="movie-title">{{movie.original_title}}</button>
+				</form>
+			</div>
+			<div class="movie-info">
+				<div class="info-section">
+					<label>Release Date</label>
+					<span>{{movie.release_date}}</span>
+				</div>
+				<div class="info-section">
+					<label>TMDB</label>
+					<span>{{movie.vote_average}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+  {% endfor %}
+</div>
 {% endblock %}
- <!-- Search Body End-->
+<!-- Search Body End-->
