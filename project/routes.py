@@ -1,24 +1,28 @@
+"""Logged-in page routes."""
+from . import aicontent
 import os
 import openai
-import aicontent
 import urllib.request
 import json
 import pickle
-from flask import Flask, render_template, redirect, request, session, url_for
+from flask import Blueprint,Flask, render_template, redirect, request, session, url_for
+from flask_login import current_user, login_required, logout_user
 
-app = Flask(__name__, static_url_path = "/static", static_folder = "static")
+# Blueprint Configuration
+main_bp = Blueprint(
+    "main_bp", __name__, template_folder="templates", static_folder="static"
+)
 
 ## API Keys 
 tmdb_ak = "a0bba4b02d48ae656ebb937c0d8d7443"
 openai.api_key =  os.getenv("OPENAI_API_KEY")
-app.config.from_object("config.Config")
 
 ########################################################################## 
 ## Routing ###############################################################
 ##########################################################################
 
 # Home/Index #############################################################
-@app.route("/", methods=['GET', 'POST'])
+@main_bp.route("/", methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
 ##########################################################################
@@ -26,7 +30,7 @@ def index():
 
 
 # Search Bar #############################################################
-@app.route("/search", methods=['GET', 'POST'])
+@main_bp.route("/search", methods=['GET', 'POST'])
 def search():
     # Preview Discover Titles
     url = "https://api.themoviedb.org/3/discover/movie?api_key=" + tmdb_ak + "&language=en-US&sort_by=popularity.desc&include_video=false&page=1&with_original_language=en"
@@ -39,7 +43,7 @@ def search():
 
 
 # Personal Recommendations #############################################
-@app.route("/personalRecommendations", methods=['GET', 'POST'])
+@main_bp.route("/personalRecommendations", methods=['GET', 'POST'])
 def personalRecommendations():
     return render_template('personalRec.html')
 ##########################################################################
@@ -48,7 +52,7 @@ def personalRecommendations():
 
 
 # Group Recommendations ##################################################
-@app.route("/groupRecommendations", methods=['GET', 'POST'])
+@main_bp.route("/groupRecommendations", methods=['GET', 'POST'])
 def groupRecommendations():
     if request.method == 'POST':
         submission = request.form['query']
@@ -62,7 +66,7 @@ def groupRecommendations():
 
 
 # Movie Details ##########################################################
-@app.route("/movie", methods=['GET', 'POST'])
+@main_bp.route("/movie", methods=['GET', 'POST'])
 def movie():
     if request.method == 'POST':
 
@@ -91,17 +95,18 @@ def movie():
         return render_template ("movie.html", movies=movieData, cast=movieCastData, similar=similarMovies["results"], streamingProviders=streamingProviders["results"])
 ##########################################################################
 
-
+@main_bp.route("/logout")
+@login_required
+def logout():
+    """User log-out logic."""
+    logout_user()
+    return redirect(url_for("auth_bp.login"))
 
 # T&C's ##################################################################
-@app.route("/tnc", methods=['GET', 'POST'])
+@main_bp.route("/tnc", methods=['GET', 'POST'])
 def tnc():
     return render_template('termsandconditions.html')
 ##########################################################################
 
 
 
-# Run ####################################################################
-if __name__ == "__main__":
-    app.run()
-##########################################################################

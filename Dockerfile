@@ -2,8 +2,8 @@
 FROM python:3.9.5-slim-buster
 
 # set work directory
-WORKDIR /mlmr-project
-COPY . /mlmr-project
+WORKDIR /project
+COPY . /project
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
