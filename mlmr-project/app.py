@@ -10,7 +10,8 @@ app = Flask(__name__, static_url_path = "/static", static_folder = "static")
 
 ## API Keys 
 tmdb_ak = "a0bba4b02d48ae656ebb937c0d8d7443"
-openai.api_key =  os.getenv("OPENAI_API_KEY")
+openai.api_key = "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"
+# openai.api_key =  os.getenv("OPENAI_API_KEY")
 app.config.from_object("config.Config")
 
 ########################################################################## 
@@ -51,12 +52,55 @@ def personalRecommendations():
 @app.route("/groupRecommendations", methods=['GET', 'POST'])
 def groupRecommendations():
     if request.method == 'POST':
-        submission = request.form['query']
-        query = "movie recommendations for me if im feeling: {}".format(submission)
-        openAIAnswerUnformatted = aicontent.openAIQuery(query)
-        openAIAnswer = openAIAnswerUnformatted.replace('\n', '<br>')
-        prompt = 'AI Suggestions for {} are:'.format(submission)
+
+        movieData = []
+        
+        # Set data for query
+        releaseRangeSearch = request.form['release-range-search-gr']
+        genreSearch = request.form['genre-search-gr']
+        ratingSearch = request.form['rating-search-gr']
+
+        query = "Q: Find 4 horror movies, released from 2010-2022, with an average rating of 65 percent or more on Rotten Tomatoes. Remove the release date from the end of each suggestion. Remove ratings from results. Remove list numbers from results.\nA: The Conjuring, The Conjuring 2, The Purge, The Purge: Anarchy\n\nQ: Find 4 " + genreSearch +  " movies, released from " + releaseRangeSearch + ", with an average rating of " + ratingSearch + " percent or more on Rotten Tomatoes. Remove the release date from the end of each suggestion. Remove ratings from results. Remove list numbers from results.\nA:"
+        
+        # locals
+        groupSearchResults = aicontent.groupSearchQuery(query)
+        groupSearchResultsSplit = groupSearchResults.split(",")
+
+
     return render_template("groupRecommendations.html", **locals())
+##########################################################################
+
+# Group Recommendations Results ##################################################
+@app.route("/groupRecommendations/results", methods=['GET', 'POST'])
+def groupRecommendationsResults():
+    if request.method == 'POST':
+
+        movieData = []
+        
+        # Set data for query
+        releaseRangeSearch = request.form['release-range-search-gr']
+        genreSearch = request.form['genre-search-gr']
+        ratingSearch = request.form['rating-search-gr']
+
+        query = "Q: Find 4 horror movies, released from 2010-2022, with an average rating of 65 percent or more on Rotten Tomatoes. Remove the release date from the end of each suggestion. Remove ratings from results. Remove list numbers from results.\nA: The Conjuring, The Conjuring 2, The Purge, The Purge: Anarchy\n\nQ: Find 4 " + genreSearch +  " movies, released from " + releaseRangeSearch + ", with an average rating of " + ratingSearch + " percent or more on Rotten Tomatoes. Remove the release date from the end of each suggestion. Remove ratings from results. Remove list numbers from results.\nA:"
+        
+        # locals
+        groupSearchResults = aicontent.groupSearchQuery(query)
+        groupSearchResultsSplit = groupSearchResults.split(",")
+        api_url_list = []
+        for word in groupSearchResultsSplit:
+            result = word.replace(' ', '%20')
+            url = "https://api.themoviedb.org/3/search/movie?api_key=" + tmdb_ak + "&language=en-US&query=" + result + "&page=1&include_adult=false"
+            api_url_list.append(url)
+
+        # Use list of urls to get data
+        for url in api_url_list:
+            response = urllib.request.urlopen(url)
+            data = response.read()
+            movieData = json.loads(data)
+
+
+    return render_template("groupRecommendations.html", movieData=movieData["results"])
 ##########################################################################
 
 

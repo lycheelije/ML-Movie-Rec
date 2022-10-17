@@ -15,7 +15,7 @@
       <hr class="dotted" />
       <h3 id="" class="movie-description text-center"><small class="text-muted">Rating: </small>{{movies.vote_average}}</h3>
       <hr class="dotted" />
-      <h3 id="" class="movie-description text-center"><small class="text-muted">Streaming Providers: </small>{% for providers in streamingProviders.US.flatrate %}{{providers.provider_name}} {% endfor %}</h3>
+      <h3 id="" class="movie-description text-center"><small class="text-muted">Streaming Providers: </small>{% for providers in streamingProviders.US.flatrate %}{{providers.provider_name}} | {% endfor %}</h3>
     </div>
 
   </div>

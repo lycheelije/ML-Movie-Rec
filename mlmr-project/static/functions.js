@@ -5,4 +5,3 @@
 //         // console.log( $("#movieId").attr('value') );
 // }, 500); 
 //   });
-

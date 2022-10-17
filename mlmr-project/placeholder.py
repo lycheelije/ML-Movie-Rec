@@ -23,3 +23,12 @@
 
 ##########################################################################
 ##########################################################################
+
+# List 5 horror movies released after 2010 with an average rating of 65% or more on Rotten Tomatoes
+
+# 1. A Quiet Place (2018)
+# 2. Hereditary (2018)
+# 3. The Babadook (2014)
+# 4. The Witch (2015)
+# 5. It Follows (2015)
+
